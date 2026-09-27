@@ -461,6 +461,17 @@ class PostgresLedgerStorage:
             pool_timeout=pool_timeout,
         )
         self.retention_seconds = retention_seconds
+        self._composite_backend: Any | None = None
+
+    @property
+    def _composite_atomic_backend(self) -> Any:
+        if self._composite_backend is None:
+            from mycelium.storage.atomic_state import PostgresAtomicStateBackend
+
+            self._composite_backend = PostgresAtomicStateBackend(
+                self._inner._dsn, table=f"{self._inner._table}_composites"
+            )
+        return self._composite_backend
 
     def get(self, request_id: str) -> Any:
         return self._inner.get(request_id)
