@@ -46,7 +46,7 @@ stable operation-ID rule, manifest diagnostics, and fail-closed limitations.
 
 Composite recovery is an opt-in wrapper for a bounded first version of
 multi-effect functions. Configure the child `ledger`/`ledger_sync` boundaries,
-choose durable `FileLedgerStorage` or `SqliteLedgerStorage`, and derive
+choose durable file, SQLite, Redis, or PostgreSQL ledger storage, and derive
 `operation_id_from` from the host request or job identity before adding the
 outer decorator.
 
@@ -89,8 +89,9 @@ Use a provider idempotency key or a truthful read-only reconciler for effects
 that can be ambiguous after the provider request starts. A local fence check
 cannot cancel an already-sent request or eliminate every check-to-send race.
 SQLite and file ledgers store composite-control records in a durable sidecar
-next to the configured ledger data; in-memory storage is suitable for unit
-tests, not restart durability. The setup skill can inspect the generated
+next to the configured ledger data; Redis and PostgreSQL use their shared
+atomic state stores. In-memory storage is suitable for unit tests, not restart
+durability. The setup skill can inspect the generated
 manifest and diagnostics, but it must not execute live consequential calls to
 validate setup.
 

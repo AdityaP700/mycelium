@@ -5,8 +5,13 @@ small PyPI versions. Pre-release checklist: [sdk/docs/RELEASE.md](sdk/docs/RELEA
 
 ## Unreleased
 
+## 1.38.5 (2026-09-28)
+
 ### Added
 
+- Support durable composite parent control and step resume with Redis and
+  PostgreSQL ledger storage. Parent lease, fence, and child evidence updates
+  use the shared atomic state CAS contract across workers.
 - Add opt-in two-person approval before destructive grant issuance. Approvals
   bind the exact canonical grant fields, expire, are consumed atomically, and
   record both operator IDs with the issued grant.
@@ -30,10 +35,6 @@ small PyPI versions. Pre-release checklist: [sdk/docs/RELEASE.md](sdk/docs/RELEA
 ## 1.38.4 (2026-09-21)
 
 ### Added
-
-- Support durable composite parent control and step resume with Redis and
-  PostgreSQL ledger storage. Parent lease, fence, and child evidence updates
-  use the shared atomic state CAS contract across workers.
 
 - Add a package reproducibility check (`.github/scripts/check-reproducible-build.py`,
   CI job `reproducible-build`). It builds the wheel and sdist twice from the same
