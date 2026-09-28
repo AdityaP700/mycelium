@@ -147,6 +147,7 @@ jobs:
 
       - name: Verify release attestations
         env:
+          GH_TOKEN: ${{ github.token }}
           RELEASE_REF: ${{ github.ref }}
           RELEASE_SHA: ${{ github.sha }}
           SIGNER_WORKFLOW: ${{ github.repository }}/.github/workflows/publish.yml
